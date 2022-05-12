@@ -1,5 +1,9 @@
 @import url("photographer.css");
 
+#main {
+  padding: 50px;
+}
+
 body {
   font-family: "DM Sans", sans-serif;
   margin: 0;

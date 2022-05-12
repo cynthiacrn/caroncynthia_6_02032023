@@ -2,43 +2,51 @@
 
 let str = window.location.href;
 let url = new URL(str);
-let photographerIdd = url.searchParams.get("id");
-console.log(photographerIdd);
+let photographerId = url.searchParams.get("id");
+console.log(photographerId);
 
-let photographerName;
-let photographerCity;
-let photographerCountry;
-let photographerQuote;
-let photographerPortrait;
-let photographerId;
-let photographerPrice;
-let photographerMedias = [];
-
-async function getPhotographerInfo() {
-  const response = await fetch("./../../data/photographers.json");
-
+async function getPhotographers() {
+  const response = await fetch("/data/photographers.json");
   const data = await response.json();
   console.log(data);
-
-  // INFOS PHOTOGRAPHE //
-  for (let i = 0; i < data.photographers.length; i++) {
-    if (data.photographers[i].id === photographerId) {
-      photographerName = data.photographers[i].name;
-      photographerCity = data.photographers[i].city;
-      photographerCountry = data.photographers[i].country;
-      photographerQuote = data.photographers[i].tagline;
-      photographerPortrait = data.photographers[i].portrait;
-      photographerId = data.photographers[i].id;
-      photographerPrice = data.photographers[i].price;
-    }
-  }
-
-  // MEDIA PHOTOGRAPHE //
-
-  for (let x = 0; x < data.media.length; x++) {
-    if (data.media[x].photographerId === photographerId) {
-      photographerMedias.push(data.media[x]);
-    }
-  }
+  return data;
 }
-getPhotographerInfo();
+
+function displayData(photographers) {
+  const photographerHeader = document.querySelector(".photograph_header");
+  let insertPrice = 0;
+
+  // Récupérer les données de tous les photographes, pour chque photographe //
+  photographers.forEach((photographer) => {
+    if (photographer.id == photographerId) {
+      // Si l'id du photographe correspond à l'Id de photographerId dans les médias //
+      const photographerModel = photographerFactoryInfo(photographer); // const qui insert la fonction afin d'afficher un photographe //
+      const userCardDOM = photographerModel.getUserMediaCardDOM(); // const qui regroupe les deux fonctions //
+      photographerHeader.appendChild(userCardDOM);
+
+      insertPrice = photographer.price;
+    }
+  });
+  const insert_price = document.getElementById("price"); //cible le bandeau au niveau du prix
+  insert_price.textContent = insertPrice + "€ / jour"; //insere le prix plus le texte
+}
+
+function displayMediaData(medias) {
+  const photographerMedias = document.querySelector(".medias_card");
+  console.log("test", photographerMedias);
+
+  medias.forEach((media) => {
+    if (media.photographerId == photographerId) {
+      const mediaModel = mediaFactory(media);
+      const photographerMediaDOM = mediaModel.getPhotographerMediaDOM();
+      photographerMedias.appendChild(photographerMediaDOM);
+    }
+  });
+}
+
+async function init() {
+  const { photographers, media } = await getPhotographers(); //créat de la const qui doit récupérer les données json  via la f. fetch
+  displayData(photographers);
+  displayMediaData(media);
+}
+init();

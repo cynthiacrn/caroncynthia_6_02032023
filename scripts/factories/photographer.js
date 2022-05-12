@@ -1,60 +1,47 @@
-function photographerFactory(data) {
-  const { name, portrait, country, city, tagline, price, id, taggers, media } =
-    data;
+// PAGE PROFIL DU PHOTOGRAPHE //
+function photographerFactoryInfo(data) {
+  const { name, portrait, country, city, tagline, price, id } = data;
 
   const picture = `assets/photographers/${portrait}`;
+  function getUserMediaCardDOM() {
+    const section = document.createElement("section");
+    section.className = "infos_container";
 
-  function getUserCardDOM() {
-    const article = document.createElement("article");
-    article.className = "photographer_container";
-
-    const img = document.createElement("img");
-    img.setAttribute("src", picture);
-    img.className = "profil_picture";
-    img.setAttribute("alt", "Photo de profil de " + name);
+    const info = document.createElement("div");
 
     const h2 = document.createElement("h2");
     h2.textContent = name;
-    h2.className = "photographer_name";
+    h2.setAttribute("aria-label", name);
+    h2.className = "photographer_profil_name";
 
     const address = document.createElement("h3");
     address.textContent = city + ", " + country;
-    address.className = "photographer_address";
+    address.className = "photographer_profil_address";
 
     const quote = document.createElement("h4");
     quote.textContent = tagline;
-    quote.className = "photographer_quote";
+    quote.className = "photographer_profil_quote";
 
-    const tariff = document.createElement("h5");
-    tariff.textContent = price + "€/jour";
-    tariff.className = "photographer_price";
+    info.appendChild(h2);
+    info.appendChild(address);
+    info.appendChild(quote);
 
-    const photographerlink = document.createElement("a");
-    photographerlink.setAttribute("href", "photographer.html?id=" + id);
-    photographerlink.setAttribute(
-      "aria-label",
-      "Se rendre sur le profil du photographe"
-    );
+    const button = document.createElement("div");
+    button.innerHTML = `<button class="contact_button" tabindex="2" aria-label = "contacter le photographe" onclick="displayModal()">Contactez-moi</button>`;
 
-    article.appendChild(photographerlink);
-    photographerlink.appendChild(img);
-    photographerlink.appendChild(h2);
-    article.appendChild(address);
-    article.appendChild(quote);
-    article.appendChild(tariff);
+    const imgContainer = document.createElement("div");
+    imgContainer.classList = "photo";
+    const img = document.createElement("img");
+    img.setAttribute("src", picture);
+    img.className = "picture";
+    img.setAttribute("alt", "Photo de profil de " + name);
 
-    return article;
+    section.appendChild(info);
+    section.appendChild(button);
+    section.appendChild(imgContainer);
+    imgContainer.appendChild(img);
+
+    return section;
   }
-  return {
-    name,
-    picture,
-    country,
-    city,
-    tagline,
-    price,
-    id,
-    taggers,
-    media,
-    getUserCardDOM,
-  };
+  return { getUserMediaCardDOM };
 }
