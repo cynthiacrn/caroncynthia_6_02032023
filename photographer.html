@@ -17,11 +17,14 @@
     </a>
   </header>
   <main id="main">
-    <div class="photograph_header">
 
+    <!--HEADER-->
+    <div class="photograph_header">
     </div>
+
+    <!--SELECT SORT-->
     <section class="photograph_medias">
-      <div class="tri">
+      <div class="sort">
         <p class="sortby">Trier par</p>
         <select class="choice" tabindex="3">
           <option class="pop" value="pop">Popularité</option>
@@ -29,49 +32,57 @@
           <option class="title" value="titre">Titre</option>
         </select>
       </div>
-      <div class="medias_card">
 
+      <!--MEDIAS CARDS-->
+      <div class="medias_card">
       </div>
+
+      <!--PRICE INSERT-->
       <aside class="insert"></aside>
     </section>
   </main>
+
+  <!--CONTACT FORM-->
   <div id="contact_modal">
     <div class="modal">
       <header>
         <h2 id="modal_title" aria-label="Formulaire de contact" onclick="displayModal()">Contactez-moi</h2>
         <img src="assets/icons/close.svg" alt="ferme le formulaire" onclick="closeModal()" />
       </header>
-      <form id="form">
-        <div class=formData>
+      <form name="contact" id="form">
+        <div class="formData" id="error-first">
           <label for="firstname">Prénom</label>
           <input class="text_control" aria-label=" Entrez votre prénom" type="text" id="firstname" name="firstname"
             required minlength="2" />
         </div>
-        <div class=formData>
+        <div class="formData" id="error-last">
           <label for="lastname">Nom</label>
           <input class="text_control" aria-label="Entrez votre nom" type="text" id="lastname" name="lastname" required
             minlength="2" />
         </div>
-        <div class=formData>
+        <div class="formData" id="error-email">
           <label for="email">Email</label>
           <input class="text_control" aria-label="Entrez votre adresse email" type="email" id="email" name="email"
             required />
         </div>
-        <div class=formData>
+        <div class="formData" id="error-message">
           <label for="message">Votre message</label>
           <textarea class="text_control" aria-label="Détail de votre message" type="text" id="text" name="message"
             required></textarea>
         </div>
-        <button class="contact_button" type=button aria-label="envoyer le formulaire"
-          id="contact_button">Envoyer</button>
+        <input class="contact_button" type="submit" aria-label="envoyer le formulaire" id="contact_button"
+          value="Envoyer" />
       </form>
     </div>
   </div>
 
-  <script src="scripts/utils/contactForm.js"></script>
   <script src="scripts/factories/photographer.js"></script>
-  <script src="scripts/pages/photographer.js"></script>
   <script src="scripts/factories/media.js"></script>
+  <script src="scripts/factories/lightbox.js"></script>
+  <script src="scripts/utils/lightbox.js"></script>
+  <script src="scripts/pages/photographer.js"></script>
+  <script src="scripts/utils/contactForm.js"></script>
+
 </body>
 
 </html>

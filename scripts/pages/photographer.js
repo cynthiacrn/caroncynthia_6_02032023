@@ -4,7 +4,11 @@ let str = window.location.href;
 let url = new URL(str);
 let photographerId = url.searchParams.get("id");
 console.log(photographerId);
+const menuSelect = document.querySelector(".choice");
 
+// HEADER + MEDIAS //
+
+// Récupération des données //
 async function getPhotographers() {
   const response = await fetch("/data/photographers.json");
   const data = await response.json();
@@ -12,6 +16,7 @@ async function getPhotographers() {
   return data;
 }
 
+// Header de la page photographe //
 function displayData(photographers) {
   const photographerHeader = document.querySelector(".photograph_header");
   let insertPrice = 0;
@@ -31,17 +36,37 @@ function displayData(photographers) {
   insert_price.textContent = insertPrice + "€ / jour"; //insere le prix plus le texte
 }
 
+// Body de la page photographe + Lightbox //
+
 function displayMediaData(medias) {
   const photographerMedias = document.querySelector(".medias_card");
-  console.log("test", photographerMedias);
 
   medias.forEach((media) => {
     if (media.photographerId == photographerId) {
       const mediaModel = mediaFactory(media);
       const photographerMediaDOM = mediaModel.getPhotographerMediaDOM();
       photographerMedias.appendChild(photographerMediaDOM);
+      createMediaLightboxDom(media);
     }
   });
+
+  let mediaArticle = document.querySelector(".medias_card");
+  console.log(mediaArticle.childNodes);
+  for (let i = 0; i < mediaArticle.childNodes.length; i++) {
+    mediaArticle.addEventListener("click", function () {
+      openLightbox();
+      createIconeLightboxDom();
+      mediaLocal(i + 1);
+    });
+    //EVENEMENT AU CLAVIER SUR LA PHOTO
+    mediaArticle.addEventListener("keypress", function (e) {
+      if (e.key == "Enter") {
+        mediaLocal(i + 1);
+        openLightbox();
+        createIconeLightboxDom();
+      }
+    });
+  }
 }
 
 async function init() {
