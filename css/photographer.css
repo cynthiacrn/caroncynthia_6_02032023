@@ -125,6 +125,7 @@ form textarea {
 }
 .card_media_container {
   width: 100%;
+  cursor: pointer;
 }
 .card_media_container img,
 .card_media_container video {
@@ -153,16 +154,22 @@ form textarea {
   flex-direction: row;
   align-items: center;
   background-color: #db8876;
-  width: 320px;
-  height: 70px;
   position: fixed;
   z-index: 1;
   border-radius: 5px 5px 0 0;
   right: 0;
   bottom: 0;
   margin-right: 50px;
-
   gap: 3rem;
+  justify-content: space-between;
+  padding: 0.5rem 2rem;
+}
+
+.likes_container {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  gap: 1rem;
 }
 
 .formData[data-error]::after {
@@ -219,6 +226,7 @@ form textarea {
   grid-column: 1/2;
   grid-row: 1/2;
   color: #901c1c;
+  cursor: pointer;
 }
 
 .fa-chevron-right {
@@ -226,6 +234,7 @@ form textarea {
   grid-column: 3/4;
   grid-row: 1/2;
   color: #901c1c;
+  cursor: pointer;
 }
 
 #close {
@@ -235,4 +244,33 @@ form textarea {
   font-size: 3rem;
   right: 2rem;
   color: #901c1c;
+  cursor: pointer;
+}
+
+.lightbox-title {
+  color: #901c1c;
+}
+
+.sortby {
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.sort {
+  display: flex;
+  gap: 1rem;
+  display: flex;
+  margin: 1rem 0;
+  font-size: 18px;
+  position: relative;
+}
+
+.choice {
+  background-color: #901c1c;
+  width: 10%;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 0 1rem;
 }

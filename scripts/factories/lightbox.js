@@ -6,8 +6,6 @@ document.body.appendChild(lightbox);
 
 // Boutons lightbox //
 function createIconeLightboxDom() {
-  console.log("test");
-
   const previousIcon = document.createElement("i");
   previousIcon.className = "fa-solid fa-chevron-left";
   previousIcon.id = "previous";
